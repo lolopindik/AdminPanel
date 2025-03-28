@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "638914810193",
+    "firebase_url": "https://study-hub-f86d2-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "study-hub-f86d2",
+    "storage_bucket": "study-hub-f86d2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:638914810193:android:1e34ba72e23d6834a1c370",
+        "android_client_info": {
+          "package_name": "com.example.admin_panel_study_hub"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1gCkMI4hqXdESvdavTQqmvllkOvJ_7qY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:638914810193:android:305df5642840f302a1c370",
+        "android_client_info": {
+          "package_name": "com.example.study_hub"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1gCkMI4hqXdESvdavTQqmvllkOvJ_7qY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
