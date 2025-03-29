@@ -1,5 +1,5 @@
 
-import 'package:admin_panel_study_hub/data/conf/theme/theme.dart';
+import 'package:admin_panel_study_hub/presentation/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';

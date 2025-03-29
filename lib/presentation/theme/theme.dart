@@ -1,4 +1,4 @@
-import 'package:admin_panel_study_hub/data/conf/theme/theme_constrains.dart';
+import 'package:admin_panel_study_hub/presentation/theme/theme_constrains.dart';
 import 'package:flutter/material.dart';
 
 ThemeData lightMode = ThemeData(

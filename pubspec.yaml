@@ -13,6 +13,7 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.8
+  gap: ^3.0.1
   
   #* Riverpod
   riverpod: ^2.6.1
@@ -27,7 +28,7 @@ dependencies:
   #* Hive (Local storage)
   hive: ^2.2.3
   hive_flutter: ^1.1.0
-  
+
   #! .env
   flutter_dotenv: ^5.2.1
 
