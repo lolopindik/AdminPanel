@@ -1,24 +1,37 @@
+import 'package:admin_panel_study_hub/logic/riverpod/observer.dart';
+import 'package:admin_panel_study_hub/logic/riverpod/theme_switcher.dart';
 import 'package:admin_panel_study_hub/presentation/routes/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive_flutter/adapters.dart';
 
 Future main () async{
-  runApp(MyApp());
+
+  await Hive.initFlutter();
+  // ignore: unused_local_variable
+  var themebox = await Hive.openBox('AppTheme');
+  
   await dotenv.load(fileName: ".env");
+
+  runApp(
+    ProviderScope(
+      observers: [Observer()],
+      child: MyApp(),
+    )
+  );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget{
   MyApp({super.key});
 
   final _appRouter = AppRouter();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
+      theme: ref.watch(themeProvider).themeData,
       routerConfig: _appRouter.config(),
     );
   }
