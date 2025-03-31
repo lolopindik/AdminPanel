@@ -4,10 +4,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 
 class AuthPage {
+
   Widget build(BuildContext context, WidgetRef ref) {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
-      //todo clear textfield controller
       child: Container(
         color: Colors.transparent,
         child: Scrollbar(
@@ -70,11 +70,11 @@ class AuthPage {
                               ),
                               child: Column(
                                 children: [
-                                  AuthTextfield().build(context, 'Email'),
+                                  AuthTextfield().build(context, 'Email', ref, 'authEmail'),
                                   Gap(
                                     MediaQuery.of(context).size.height * 0.02,
                                   ),
-                                  AuthTextfield().build(context, 'Password'),
+                                  AuthTextfield().build(context, 'Password', ref, 'authPassword'),
                                   Gap(
                                     MediaQuery.of(context).size.height * 0.03,
                                   ),
