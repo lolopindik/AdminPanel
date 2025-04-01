@@ -76,11 +76,11 @@ class AuthPage {
                               ),
                               child: Column(
                                 children: [
-                                  AuthTextfield().build(context, 'Email', ref, 'authEmail'),
+                                  AuthTextfield().build(context, 'Email', ref, 'authEmail', false),
                                   Gap(
                                     MediaQuery.of(context).size.height * 0.02,
                                   ),
-                                  AuthTextfield().build(context, 'Password', ref, 'authPassword'),
+                                  AuthTextfield().build(context, 'Password', ref, 'authPassword', true),
                                   Gap(
                                     MediaQuery.of(context).size.height * 0.03,
                                   ),
