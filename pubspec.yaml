@@ -25,6 +25,8 @@ dependencies:
 
   #* Firebase (BaaS)
   firebase_core: ^3.12.1
+  firebase_auth: ^5.5.2
+  firebase_database: ^11.3.5
 
   #* Hive (Local storage)
   hive: ^2.2.3
