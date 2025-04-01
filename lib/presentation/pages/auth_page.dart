@@ -1,11 +1,17 @@
+import 'package:admin_panel_study_hub/logic/riverpod/textfield_handler.dart';
 import 'package:admin_panel_study_hub/presentation/widgets/auth_textfield.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 
 class AuthPage {
-
   Widget build(BuildContext context, WidgetRef ref) {
+
+    final controllerEmail = ref.watch(textFieldControllerProvider('authEmail'));
+    final controllerPassword = ref.watch(textFieldControllerProvider('authPassword'));
+    final bool isValid = EmailValidator.validate(controllerEmail.text);
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Container(
@@ -79,7 +85,11 @@ class AuthPage {
                                     MediaQuery.of(context).size.height * 0.03,
                                   ),
                                   ElevatedButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      debugPrint('Email: $controllerEmail');
+                                      debugPrint('Password: $controllerPassword');
+                                      debugPrint('Email validation: $isValid');
+                                    },
                                     child: Text('Continue'),
                                   ),
                                 ],
