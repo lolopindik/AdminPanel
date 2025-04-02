@@ -1,4 +1,6 @@
 import 'package:admin_panel_study_hub/logic/riverpod/textfield_handler.dart';
+import 'package:admin_panel_study_hub/logic/services/fireabse_services.dart';
+import 'package:admin_panel_study_hub/presentation/routes/router.gr.dart';
 import 'package:admin_panel_study_hub/presentation/widgets/auth_textfield.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
@@ -7,9 +9,10 @@ import 'package:gap/gap.dart';
 
 class AuthPage {
   Widget build(BuildContext context, WidgetRef ref) {
-
     final controllerEmail = ref.watch(textFieldControllerProvider('authEmail'));
-    final controllerPassword = ref.watch(textFieldControllerProvider('authPassword'));
+    final controllerPassword = ref.watch(
+      textFieldControllerProvider('authPassword'),
+    );
     final bool isValid = EmailValidator.validate(controllerEmail.text);
 
     return GestureDetector(
@@ -76,19 +79,39 @@ class AuthPage {
                               ),
                               child: Column(
                                 children: [
-                                  AuthTextfield().build(context, 'Email', ref, 'authEmail', false),
+                                  AuthTextfield().build(
+                                    context,
+                                    'Email',
+                                    ref,
+                                    'authEmail',
+                                    false,
+                                  ),
                                   Gap(
                                     MediaQuery.of(context).size.height * 0.02,
                                   ),
-                                  AuthTextfield().build(context, 'Password', ref, 'authPassword', true),
+                                  AuthTextfield().build(
+                                    context,
+                                    'Password',
+                                    ref,
+                                    'authPassword',
+                                    true,
+                                  ),
                                   Gap(
                                     MediaQuery.of(context).size.height * 0.03,
                                   ),
                                   ElevatedButton(
                                     onPressed: () {
                                       debugPrint('Email: $controllerEmail');
-                                      debugPrint('Password: $controllerPassword');
+                                      debugPrint(
+                                        'Password: $controllerPassword',
+                                      );
                                       debugPrint('Email validation: $isValid');
+                                      FireabseServices().signIn(
+                                        controllerEmail.text,
+                                        controllerPassword.text,
+                                        MainRoute(),
+                                        context,
+                                      );
                                     },
                                     child: Text('Continue'),
                                   ),
