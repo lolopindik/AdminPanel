@@ -8,6 +8,7 @@ class AppRouter extends RootStackRouter {
   List<AutoRoute> get routes => [
     //todo implement authentication check
     AutoRoute(page: AuthRoute.page, initial: true),
-    AutoRoute(page: MainRoute.page),
+    AutoRoute(page: MainRoute.page, initial: false),
+    AutoRoute(page: AccessDeniedRoute.page, initial: false)
   ];
 }

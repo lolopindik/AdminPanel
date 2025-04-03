@@ -1,6 +1,8 @@
-// ignore_for_file: unused_local_variable, avoid_print, use_build_context_synchronously
+// ignore_for_file: unused_local_variable, use_build_context_synchronously, unrelated_type_equality_checks
 
+import 'package:admin_panel_study_hub/data/firebase/user_data.dart';
 import 'package:admin_panel_study_hub/logic/services/snackbars_services.dart';
+import 'package:admin_panel_study_hub/presentation/routes/router.gr.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -13,27 +15,30 @@ class FireabseServices {
     BuildContext context,
   ) async {
     try {
-      print(
-        'Attempting to sign in with email: $emailAddress and password: $password',
-      );
+      debugPrint('Attempting to sign in with email: $emailAddress');
 
       final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailAddress,
         password: password,
       );
 
-      print('Sign-in successful!');
-      SnackbarsServices.showSuccessSnackbar(context, 'Successfully signed in!');
+      final userRole = await GetUserRole().userRole;
+      debugPrint('User role: $userRole');
 
-      if (context.mounted) {
+      if (userRole == "Admin") {
+        debugPrint('Sign-in successful!');
+        SnackbarsServices.showSuccessSnackbar(
+          context,
+          'Successfully signed in!',
+        );
         context.router.replace(routePage);
       } else {
-        print('Widget is no longer mounted. Navigation skipped.');
+        debugPrint('Access only for admins');
+        SnackbarsServices.showWarningSnackbar(context, 'Access denied!');
+        context.router.replace(AccessDeniedRoute());
       }
     } on FirebaseAuthException catch (e) {
-      print(
-        'FirebaseAuthException caught: code = ${e.code}, message = ${e.message}',
-      );
+      debugPrint('FirebaseAuthException: ${e.code} - ${e.message}');
       switch (e.code) {
         case 'user-not-found':
           SnackbarsServices.showErrorSnackbar(
@@ -44,7 +49,7 @@ class FireabseServices {
         case 'wrong-password':
           SnackbarsServices.showErrorSnackbar(
             context,
-            'Wrong password provided for that user.',
+            'Wrong password provided.',
           );
           break;
         default:
@@ -64,7 +69,7 @@ class FireabseServices {
       if (context.mounted) {
         context.router.replace(routePage);
       } else {
-        print('Widget is no longer mounted. Navigation skipped.');
+        debugPrint('Widget is no longer mounted. Navigation skipped.');
       }
     } catch (e) {
       SnackbarsServices.showErrorSnackbar(context, 'Error during sign out: $e');

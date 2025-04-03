@@ -53,7 +53,7 @@ class AuthPage {
                             alignment: Alignment.topCenter,
                             child: Text(
                               'Authorization',
-                              style: TextStyle(fontSize: 32),
+                              style: TextStyle(fontSize: 32, color: Colors.white),
                             ),
                           ),
                           Container(
@@ -107,8 +107,8 @@ class AuthPage {
                                       );
                                       debugPrint('Email validation: $isValid');
                                       FireabseServices().signIn(
-                                        controllerEmail.text,
-                                        controllerPassword.text,
+                                        controllerEmail.text.trim(),
+                                        controllerPassword.text.trim(),
                                         MainRoute(),
                                         context,
                                       );

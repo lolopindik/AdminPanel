@@ -1,4 +1,8 @@
-import 'package:admin_panel_study_hub/logic/riverpod/theme_switcher.dart';
+import 'package:admin_panel_study_hub/logic/riverpod/bottombar_navigation.dart';
+import 'package:admin_panel_study_hub/presentation/screens/home_screen.dart';
+import 'package:admin_panel_study_hub/presentation/screens/users_details_screen.dart';
+import 'package:admin_panel_study_hub/presentation/widgets/drawer_widget.dart';
+import 'package:admin_panel_study_hub/presentation/widgets/main_bottombar.dart';
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -13,21 +17,15 @@ class MainScreen extends ConsumerWidget {
       appBar: AppBar(
         backgroundColor: Theme.of(context).primaryColor,
       ),
-      body: SizedBox(
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Center(
-              child: Text('It is deploy dude', style: TextStyle(fontSize: 32)),
-            ),
-            ElevatedButton(
-              onPressed: () => ref.read(themeProvider).toggleTheme(),
-              child: Text('Push me'),
-            ),
-          ],
-        ),
-      ),
+      bottomNavigationBar: BottomBarWidget().build(context, ref),
+      drawer: DrawerWidget().build(context, ref),
+      body: IndexedStack(
+        index: ref.watch(riverpodnavigator).index,
+        children: [
+          HomeScreen(),
+          UsersDetailsScreen()
+        ],
+      )
     );
   }
 }

@@ -22,7 +22,7 @@ ThemeData darkMode = ThemeData(
     surface: DarkModeColors.mainColor,
     primary: LightModeColors.primaryColor,
     onPrimary: Colors.white, 
-    secondary: DarkModeColors.primaryColor, 
+    secondary: DarkModeColors.secondary, 
     onSecondary: Colors.white,
     tertiary: Colors.grey,
   ),
