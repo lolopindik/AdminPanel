@@ -1,18 +1,21 @@
 // ignore_for_file: unused_local_variable, use_build_context_synchronously, unrelated_type_equality_checks
 
 import 'package:admin_panel_study_hub/data/firebase/user_data.dart';
+import 'package:admin_panel_study_hub/logic/riverpod/auth_status.dart';
 import 'package:admin_panel_study_hub/logic/services/snackbars_services.dart';
 import 'package:admin_panel_study_hub/presentation/routes/router.gr.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class FireabseServices {
-  Future signIn(
+class FirebaseServices {
+  Future<void> signIn(
     String emailAddress,
     String password,
-    var routePage,
+    PageRouteInfo routePage,
     BuildContext context,
+    WidgetRef ref,
   ) async {
     try {
       debugPrint('Attempting to sign in with email: $emailAddress');
@@ -26,16 +29,16 @@ class FireabseServices {
       debugPrint('User role: $userRole');
 
       if (userRole == "Admin") {
+        ref.read(authStatusProvider.notifier).setAuthStatus(role: userRole);
         debugPrint('Sign-in successful!');
         SnackbarsServices.showSuccessSnackbar(
           context,
           'Successfully signed in!',
         );
-        context.router.replace(routePage);
+        context.router.replacePath('/main');
       } else {
-        debugPrint('Access only for admins');
         SnackbarsServices.showWarningSnackbar(context, 'Access denied!');
-        context.router.replace(AccessDeniedRoute());
+        context.router.replace(const AccessDeniedRoute());
       }
     } on FirebaseAuthException catch (e) {
       debugPrint('FirebaseAuthException: ${e.code} - ${e.message}');
@@ -55,23 +58,34 @@ class FireabseServices {
         default:
           SnackbarsServices.showErrorSnackbar(context, 'Error: ${e.message}');
       }
+    } catch (e) {
+      debugPrint('Unexpected error: $e');
+      SnackbarsServices.showErrorSnackbar(
+        context,
+        'An unexpected error occurred: $e',
+      );
     }
   }
 
-  Future signOut(BuildContext context, var routePage) async {
+  Future<void> signOut(
+    BuildContext context,
+    PageRouteInfo routePage,
+    WidgetRef ref,
+  ) async {
     try {
       await FirebaseAuth.instance.signOut();
+      ref.read(authStatusProvider.notifier).clearAuthStatus();
+
+      if (!context.mounted) return;
+
       SnackbarsServices.showSuccessSnackbar(
         context,
         'Successfully signed out!',
       );
-
-      if (context.mounted) {
-        context.router.replace(routePage);
-      } else {
-        debugPrint('Widget is no longer mounted. Navigation skipped.');
-      }
+      context.router.replacePath('/auth');
     } catch (e) {
+      if (!context.mounted) return;
+
       SnackbarsServices.showErrorSnackbar(context, 'Error during sign out: $e');
     }
   }

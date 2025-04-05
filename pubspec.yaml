@@ -51,6 +51,7 @@ flutter:
 
   assets:
     - .env
+    - lib/logic/assets/Images/eye.gif
 
   # fonts:
   #   - family: Schyler

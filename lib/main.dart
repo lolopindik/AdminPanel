@@ -14,6 +14,7 @@ Future main () async{
 
   await Hive.initFlutter();
   var themebox = await Hive.openBox('AppTheme');
+  var authstatus = await Hive.openBox('AuthStatus');
   await dotenv.load(fileName: ".env");
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -28,16 +29,17 @@ Future main () async{
 }
 
 class MyApp extends ConsumerWidget{
-  MyApp({super.key});
-
-  final _appRouter = AppRouter();
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    
+    final appRouter = AppRouter(ref);
+    
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       theme: ref.watch(themeProvider).themeData,
-      routerConfig: _appRouter.config(),
+      routerConfig: appRouter.config(),
     );
   }
 }

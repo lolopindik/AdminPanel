@@ -106,11 +106,12 @@ class AuthPage {
                                         'Password: $controllerPassword',
                                       );
                                       debugPrint('Email validation: $isValid');
-                                      FireabseServices().signIn(
+                                      FirebaseServices().signIn(
                                         controllerEmail.text.trim(),
                                         controllerPassword.text.trim(),
                                         MainRoute(),
                                         context,
+                                        ref
                                       );
                                     },
                                     child: Text('Continue'),
