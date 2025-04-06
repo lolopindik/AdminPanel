@@ -11,8 +11,12 @@ class BottomBarWidget {
       },
       items: const [
         BottomNavigationBarItem(
+          icon: Icon(Icons.bar_chart,),
+          label: 'Progress',
+        ),
+        BottomNavigationBarItem(
           icon: Icon(Icons.account_tree,),
-          label: 'Home page',
+          label: 'Сontrol',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.person),

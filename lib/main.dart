@@ -1,5 +1,6 @@
 // ignore_for_file: unused_local_variable
 
+import 'package:admin_panel_study_hub/data/firebase_conf/firebase_options.dart';
 import 'package:admin_panel_study_hub/logic/riverpod/observer.dart';
 import 'package:admin_panel_study_hub/logic/riverpod/theme_switcher.dart';
 import 'package:admin_panel_study_hub/presentation/routes/router.dart';
@@ -12,13 +13,16 @@ import 'package:hive_flutter/adapters.dart';
 
 Future main () async{
 
+  await dotenv.load(fileName: ".env");
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  WidgetsFlutterBinding.ensureInitialized();
+  FirebaseDatabase database = FirebaseDatabase.instance;
+
   await Hive.initFlutter();
   var themebox = await Hive.openBox('AppTheme');
   var authstatus = await Hive.openBox('AuthStatus');
-  await dotenv.load(fileName: ".env");
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  FirebaseDatabase database = FirebaseDatabase.instance;
 
   runApp(
     ProviderScope(
@@ -38,6 +42,7 @@ class MyApp extends ConsumerWidget{
     
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
+      debugShowMaterialGrid: false,
       theme: ref.watch(themeProvider).themeData,
       routerConfig: appRouter.config(),
     );

@@ -1,6 +1,7 @@
 import 'package:admin_panel_study_hub/logic/riverpod/bottombar_navigation.dart';
-import 'package:admin_panel_study_hub/presentation/screens/home_screen.dart';
+import 'package:admin_panel_study_hub/presentation/screens/control_screen.dart';
 import 'package:admin_panel_study_hub/presentation/screens/users_details_screen.dart';
+import 'package:admin_panel_study_hub/presentation/screens/users_progress_screen.dart';
 import 'package:admin_panel_study_hub/presentation/widgets/drawer_widget.dart';
 import 'package:admin_panel_study_hub/presentation/widgets/main_bottombar.dart';
 import 'package:auto_route/annotations.dart';
@@ -22,8 +23,9 @@ class MainScreen extends ConsumerWidget {
       body: IndexedStack(
         index: ref.watch(riverpodnavigator).index,
         children: [
-          HomeScreen(),
-          UsersDetailsScreen()
+          UsersProgressScreen(),
+          ControlScreen(),
+          UsersDetailsScreen(),
         ],
       )
     );
