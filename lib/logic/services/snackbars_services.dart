@@ -6,9 +6,11 @@ class SnackbarsServices {
     String message, {
     Color? backgroundColor,
   }) {
+    double screenWidth = MediaQuery.of(context).size.width;
     if (context.mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
+          width: (screenWidth > 600) ? MediaQuery.of(context).size.width * 0.5 :  MediaQuery.of(context).size.width * 0.8,
           content: Text(message, style: const TextStyle(color: Colors.white)),
           backgroundColor: backgroundColor ?? Colors.blueGrey,
           duration: const Duration(seconds: 3),
